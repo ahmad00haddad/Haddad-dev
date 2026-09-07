@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [projectsData, setProjectsData] = useState<Project[]>([]);
   const [randomProjects, setRandomProjects] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => typeof window !== "undefined" ? !sessionStorage.getItem("has_loaded_canvas") : true);
   const [loadProgress, setLoadProgress] = useState(0);
   const [visibleCount, setVisibleCount] = useState(5);
   const MARQUEE_ITEMS = [...SKILLS, ...SKILLS];
@@ -62,6 +62,13 @@ function Index() {
         const selected6 = shuffled.slice(0, 6);
         setRandomProjects(selected6);
 
+        // If already loaded in this session, skip the visual preloader wait
+        if (sessionStorage.getItem('has_loaded_canvas')) {
+          setLoadProgress(100);
+          return;
+        }
+
+
         // Preload exactly the 6 images that will be rendered
         const imagesToLoad = [
           selected6[0]?.image || hero1,
@@ -80,6 +87,7 @@ function Index() {
             loadedCount++;
             setLoadProgress(Math.round((loadedCount / imagesToLoad.length) * 100));
             if (loadedCount === imagesToLoad.length) {
+              sessionStorage.setItem('has_loaded_canvas', 'true');
               setTimeout(() => setIsLoading(false), 500); // Wait half a second at 100% for aesthetic effect
             }
           };
