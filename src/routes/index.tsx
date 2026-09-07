@@ -229,7 +229,17 @@ function Index() {
         </div>
 
         {/* Hero */}
-        <section id="top" className="mx-auto max-w-7xl px-5 pb-14 pt-10 sm:px-8 sm:pt-16">
+        <section 
+          id="top" 
+          className="mx-auto max-w-7xl px-5 pb-14 pt-10 sm:px-8 sm:pt-16 relative"
+          onMouseMove={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = (e.clientX - rect.left - rect.width / 2) / 25;
+            const y = (e.clientY - rect.top - rect.height / 2) / 25;
+            setMousePos({ x, y });
+          }}
+          onMouseLeave={() => setMousePos({ x: 0, y: 0 })}
+        >
           <div className="relative">
                         <div className="pointer-events-none absolute inset-0 -z-10 hidden md:block">
               <img
@@ -410,7 +420,13 @@ function Index() {
         </section>
 
         {/* Skills Marquee */}
-        <section className="relative overflow-hidden border-y border-border bg-card/20 py-8">
+        <section className="relative overflow-hidden border-y border-border bg-card/20 py-8 group cursor-pointer">
+            {/* Smart Marquee Hint */}
+            <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-active:scale-95">
+              <span className="rounded-full bg-foreground/90 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.3em] text-background shadow-2xl backdrop-blur-md">
+                [ Hold to Pause ]
+              </span>
+            </div>
           <div className="flex w-max animate-marquee items-center gap-16 pr-16 hover:[animation-play-state:paused]">
             {MARQUEE_ITEMS.map((skill, i) => (
               <span 
@@ -424,9 +440,17 @@ function Index() {
         </section>
 
         {/* Contact */}
-        <footer id="contact" className="mx-auto max-w-7xl px-5 pb-16 pt-24 sm:px-8">
-          <h2 className="font-display text-[18vw] font-extrabold uppercase leading-[0.82] tracking-tighter sm:text-[14vw]">
-            Let&apos;s <span className="font-serif italic normal-case">Talk</span>
+        <footer id="contact" className="mx-auto max-w-7xl px-5 pb-16 pt-24 sm:px-8 relative">
+          <h2 className="font-display text-[18vw] font-extrabold uppercase leading-[0.82] tracking-tighter sm:text-[14vw] relative z-10">
+            Let&apos;s <span className="font-serif italic normal-case relative group">
+              Talk
+              {/* Live Signature SVG */}
+              <svg className="absolute -bottom-10 right-0 h-24 w-64 text-primary opacity-50 group-hover:opacity-100 transition-opacity" viewBox="0 0 200 80" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M40,50 Q60,20 80,45 T110,40 Q130,20 150,45" className="animate-[draw_3s_ease-out_forwards] drop-shadow-[0_0_10px_var(--primary)]" style={{ strokeDasharray: 300, strokeDashoffset: 300 }} />
+                <path d="M30,30 L50,70" className="animate-[draw_3s_ease-out_forwards_0.5s] drop-shadow-[0_0_10px_var(--primary)]" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
+                <path d="M100,20 L110,60" className="animate-[draw_3s_ease-out_forwards_1s] drop-shadow-[0_0_10px_var(--primary)]" style={{ strokeDasharray: 100, strokeDashoffset: 100 }} />
+              </svg>
+            </span>
           </h2>
 
           <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border sm:grid-cols-3">

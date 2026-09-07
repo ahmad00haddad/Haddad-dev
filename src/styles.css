@@ -188,3 +188,9 @@
 .animate-breathe {
   animation: breathe 4s ease-in-out infinite;
 }
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
