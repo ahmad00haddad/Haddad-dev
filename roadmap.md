@@ -1,4 +1,4 @@
 # Roadmap
 
-- [ ] Fix the undefined animated calculator values
-- [ ] Verify the calculator renders and updates without runtime errors
+- [x] Fix the undefined animated calculator values
+- [x] Verify the calculator renders and updates without runtime errors
