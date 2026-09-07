@@ -89,14 +89,34 @@ function CalculatorPage() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30">
       <div className="olive-glow pointer-events-none fixed inset-0 opacity-40" aria-hidden="true" />
+
+      <header className="mx-auto flex max-w-7xl items-center justify-end px-5 py-6 sm:px-8 relative z-50">
+        <nav className="flex items-center gap-5 text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:gap-8 sm:text-xs">
+          <Link to="/" className="transition-colors hover:text-foreground">
+            Home
+          </Link>
+          <Link to="/calculator" className="text-primary transition-colors hover:text-primary/80">
+            [ Calculator ]
+          </Link>
+          <a className="transition-colors hover:text-foreground" href="/#work">
+            Projects
+          </a>
+          <a className="transition-colors hover:text-foreground" href="/#contact">
+            Contact
+          </a>
+        </nav>
+      </header>
       
       <div className="relative mx-auto max-w-4xl p-6 pt-12 sm:p-12">
         <header className="mb-12 border-b border-border pb-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Project Estimator</h1>
-              <p className="mt-2 text-sm text-muted-foreground uppercase tracking-[0.2em]">Intelligent Pricing Calculator</p>
-            </div>
+                <h1 className="font-display text-4xl font-extrabold uppercase leading-[0.85] tracking-tighter sm:text-[4rem]">
+                  <span className="block"><ScrambleText text="Project" /></span>
+                  <span className="block font-serif italic normal-case text-primary/80">Estimator</span>
+                </h1>
+                <p className="mt-6 text-[10px] text-muted-foreground uppercase tracking-[0.3em]">Intelligent Pricing Engine</p>
+              </div>
             <Link to="/" className="text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors">
               [ Back to Home ]
             </Link>
