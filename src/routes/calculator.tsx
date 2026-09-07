@@ -88,6 +88,8 @@ function CalculatorPage() {
   };
 
   const { min: calcMin, max: calcMax } = calculatePrice();
+  const animatedMin = useCountUp(calcMin);
+  const animatedMax = useCountUp(calcMax);
   const min = calcMin.toLocaleString("en-US");
   const max = calcMax.toLocaleString("en-US");
 
