@@ -92,16 +92,16 @@ function CalculatorPage() {
 
       <header className="mx-auto flex max-w-7xl items-center justify-end px-5 py-6 sm:px-8 relative z-50">
         <nav className="flex items-center gap-5 text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:gap-8 sm:text-xs">
-          <Link to="/" className="transition-colors hover:text-foreground">
+          <Link to="/" className="transition-all duration-300 hover:text-foreground hover:-translate-y-1 hover:scale-110 active:scale-95">
             Home
           </Link>
-          <Link to="/calculator" className="text-primary transition-colors hover:text-primary/80">
+          <Link to="/calculator" className="text-primary transition-all duration-300 hover:text-primary/80 hover:-translate-y-1 hover:scale-110 active:scale-95">
             [ Calculator ]
           </Link>
-          <a className="transition-colors hover:text-foreground" href="/#work">
+          <a className="transition-all duration-300 hover:text-foreground hover:-translate-y-1 hover:scale-110 active:scale-95" href="/#work">
             Projects
           </a>
-          <a className="transition-colors hover:text-foreground" href="/#contact">
+          <a className="transition-all duration-300 hover:text-foreground hover:-translate-y-1 hover:scale-110 active:scale-95" href="/#contact">
             Contact
           </a>
         </nav>

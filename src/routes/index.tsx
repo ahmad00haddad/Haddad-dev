@@ -199,23 +199,24 @@ function Index() {
 
       <div className="relative z-10">
         {/* Nav */}
-        <header className="mx-auto flex max-w-7xl items-center justify-end px-5 py-6 sm:px-8">
-          
-          <nav className="flex items-center gap-5 text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:gap-8 sm:text-xs">
-            <Link to="/calculator" className="text-primary transition-colors hover:text-primary/80">
-              [ Calculator ]
-            </Link>
-            <a className="transition-colors hover:text-foreground" href="#work">
-              Projects
-            </a>
-            <a className="transition-colors hover:text-foreground" href="#about">
-              About Me
-            </a>
-            <a className="transition-colors hover:text-foreground" href="#contact">
-              Contact
-            </a>
-          </nav>
-        </header>
+        <div className={`sticky top-0 z-40 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isScrolled ? '-translate-y-full opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
+          <header className="mx-auto flex max-w-7xl items-center justify-end px-5 py-6 sm:px-8">
+            <nav className="flex items-center gap-5 text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:gap-8 sm:text-xs">
+              <Link to="/calculator" className="text-primary transition-all duration-300 hover:text-primary/80 hover:-translate-y-1 hover:scale-110 active:scale-95">
+                [ Calculator ]
+              </Link>
+              <a className="transition-all duration-300 hover:text-foreground hover:-translate-y-1 hover:scale-110 active:scale-95" href="#work">
+                Projects
+              </a>
+              <a className="transition-all duration-300 hover:text-foreground hover:-translate-y-1 hover:scale-110 active:scale-95" href="#about">
+                About Me
+              </a>
+              <a className="transition-all duration-300 hover:text-foreground hover:-translate-y-1 hover:scale-110 active:scale-95" href="#contact">
+                Contact
+              </a>
+            </nav>
+          </header>
+        </div>
 
         {/* Hero */}
         <section id="top" className="mx-auto max-w-7xl px-5 pb-14 pt-10 sm:px-8 sm:pt-16">
@@ -256,12 +257,12 @@ function Index() {
 
             <div className="mt-10 grid gap-8 md:mt-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
               <p className="relative z-20 max-w-md text-sm leading-relaxed text-foreground/90 font-medium tracking-wide shadow-black drop-shadow-lg">
-                <span className="mr-2 font-serif text-5xl leading-none text-foreground/60 align-middle">
+                <span className="mr-2 inline-block font-serif text-5xl leading-none text-foreground/60 align-middle animate-breathe">
                   (
                 </span>
                 HELLO! I&apos;m Ahmad Haddad, a Computer Engineer &amp; Web Developer utilizing AI
                 to build web experiences.
-                <span className="ml-2 font-serif text-5xl leading-none text-foreground/60 align-middle">
+                <span className="ml-2 inline-block font-serif text-5xl leading-none text-foreground/60 align-middle animate-breathe" style={{ animationDelay: "2s" }}>
                   )
                 </span>
               </p>
