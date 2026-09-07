@@ -45,7 +45,9 @@ function Index() {
     const onScroll = () => setIsScrolled(window.scrollY > 80);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const hasLoadedInitially = typeof window !== "undefined" ? !!sessionStorage.getItem("has_loaded_canvas") : false;
+
+  return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
 
@@ -121,14 +123,18 @@ function Index() {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    const hasLoadedInitially = typeof window !== "undefined" ? !!sessionStorage.getItem("has_loaded_canvas") : false;
+
+  return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  const hasLoadedInitially = typeof window !== "undefined" ? !!sessionStorage.getItem("has_loaded_canvas") : false;
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
       {/* Preloader */}
       <div 
-        className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background transition-opacity duration-1000 ease-in-out ${isLoading ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background ${hasLoadedInitially ? "hidden" : "transition-opacity duration-1000 ease-in-out"} ${isLoading ? "opacity-100" : "pointer-events-none opacity-0"}`}
       >
         <div className="text-center font-display">
           <div className="mb-6 text-xs font-bold tracking-[0.4em] text-muted-foreground uppercase">
@@ -527,7 +533,9 @@ function ScrambleText({ text }: { text: string }) {
       iteration += 1 / 3;
     }, 30);
     
-    return () => clearInterval(interval);
+    const hasLoadedInitially = typeof window !== "undefined" ? !!sessionStorage.getItem("has_loaded_canvas") : false;
+
+  return () => clearInterval(interval);
   }, [text]);
   
   return <>{displayText || text}</>;
@@ -550,6 +558,8 @@ function Card({
   className?: string;
   ratio: string;
 }) {
+  const hasLoadedInitially = typeof window !== "undefined" ? !!sessionStorage.getItem("has_loaded_canvas") : false;
+
   return (
     <figure className={`group relative ${className ?? ""}`}>
       <div className={`relative overflow-hidden rounded-sm ${ratio}`}>
@@ -592,6 +602,8 @@ function ContactItem({ label, value, href, copyable = false }: { label: string; 
       setTimeout(() => setCopied(false), 2000);
     }
   };
+
+  const hasLoadedInitially = typeof window !== "undefined" ? !!sessionStorage.getItem("has_loaded_canvas") : false;
 
   return (
     <a
