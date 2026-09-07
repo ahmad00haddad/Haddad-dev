@@ -272,7 +272,7 @@ function CalculatorPage() {
 
           {/* Results Panel */}
           <div className="relative">
-            <div className={`sticky top-12 overflow-hidden rounded-2xl border border-border p-6 shadow-2xl transition-all duration-700 ${max > 2000 ? 'backdrop-blur-2xl bg-card/60' : 'backdrop-blur-xl bg-card/90'}`}>
+            <div className={`sticky top-12 overflow-hidden rounded-2xl border border-border p-6 shadow-2xl transition-all duration-700 ${calcMax > 2000 ? 'backdrop-blur-2xl bg-card/60' : 'backdrop-blur-xl bg-card/90'}`}>
               <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/20 blur-3xl" />
               
               <h3 className="mb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">Estimated Investment</h3>
