@@ -1,5 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { useEffect } from "react";
+
+function useCountUp(value: number, duration: number = 800) {
+  const [count, setCount] = useState(value);
+  
+  useEffect(() => {
+    let startTimestamp: number;
+    const startValue = count;
+    
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(startValue + (value - startValue) * easeOut));
+      
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+    
+    requestAnimationFrame(step);
+  }, [value, duration]);
+  
+  return count;
+}
+
 import { ScrambleText } from "@/components/ScrambleText";
 
 export const Route = createFileRoute("/calculator")({
@@ -150,6 +177,11 @@ function CalculatorPage() {
                   </button>
                 ))}
               </div>
+              <div className="mt-3 text-center text-[9px] uppercase tracking-widest text-muted-foreground/50 transition-all duration-500 min-h-[16px]">
+                {maintenance === "standard" && "Standard covers basic updates & security."}
+                {maintenance === "premium" && <span className="text-primary/70">Premium adds SEO tracking & priority support.</span>}
+                {maintenance === "none" && "Self-managed. No monthly fees."}
+              </div>
             </section>
 
             {/* Scope */}
@@ -176,9 +208,12 @@ function CalculatorPage() {
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">3. Requirements</h2>
               <div className="space-y-3">
                 <label className="flex cursor-pointer items-center justify-between rounded-xl border border-border bg-card/10 p-4 transition-all hover:bg-card/30 hover:border-border/50 focus-within:border-primary">
-                  <div className="flex flex-col">
+                  <div className="flex flex-col relative group">
                     <span className="font-mono text-sm">UI/UX Concept Creation</span>
                     <span className="text-[10px] text-muted-foreground">Design from scratch (+20%)</span>
+                    <div className="absolute left-0 bottom-full mb-2 hidden w-48 rounded-md bg-foreground p-3 text-[10px] leading-relaxed text-background opacity-0 transition-opacity group-hover:block group-hover:opacity-100 z-10 shadow-2xl">
+                      Custom wireframes, interactive prototypes, and premium aesthetics tailored to your brand (no templates).
+                    </div>
                   </div>
                   <input
                     type="checkbox"
@@ -225,23 +260,38 @@ function CalculatorPage() {
                   </button>
                 ))}
               </div>
+              <div className="mt-3 text-center text-[9px] uppercase tracking-widest text-muted-foreground/50 transition-all duration-500 min-h-[16px]">
+                {maintenance === "standard" && "Standard covers basic updates & security."}
+                {maintenance === "premium" && <span className="text-primary/70">Premium adds SEO tracking & priority support.</span>}
+                {maintenance === "none" && "Self-managed. No monthly fees."}
+              </div>
             </section>
           </div>
 
           {/* Results Panel */}
           <div className="relative">
-            <div className="sticky top-12 overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-2xl backdrop-blur-xl">
+            <div className={`sticky top-12 overflow-hidden rounded-2xl border border-border p-6 shadow-2xl transition-all duration-700 ${max > 2000 ? 'backdrop-blur-2xl bg-card/60' : 'backdrop-blur-xl bg-card/90'}`}>
               <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/20 blur-3xl" />
               
               <h3 className="mb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">Estimated Investment</h3>
               
-              <div className="my-6">
-                <div className="flex items-baseline gap-2">
-                  <span className="font-display text-4xl font-extrabold text-foreground sm:text-5xl">{min}</span>
-                  <span className="text-xl text-muted-foreground">-</span>
-                  <span className="font-display text-4xl font-extrabold text-foreground sm:text-5xl">{max}</span>
+              <div className="my-8">
+                <div className="flex items-center gap-3">
+                  <span className="font-serif text-[2.5rem] italic tracking-tighter text-foreground sm:text-6xl">{animatedMin}</span>
+                  <span className="text-2xl font-light text-muted-foreground/30">—</span>
+                  <span className="font-serif text-[2.5rem] italic tracking-tighter text-foreground sm:text-6xl">{animatedMax}</span>
                 </div>
-                <div className="mt-1 text-sm font-mono text-primary">JOD (One-time)</div>
+                <div className="mt-3 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+                  JOD <span className="font-normal text-muted-foreground">(One-time)</span>
+                </div>
+                
+                {/* Dynamic Budget Gauge */}
+                <div className="mt-6 h-1 w-full overflow-hidden rounded-full bg-border/50">
+                  <div 
+                    className="h-full bg-gradient-to-r from-primary to-green-400 transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)]" 
+                    style={{ width: `${Math.min((animatedMax / 5000) * 100, 100)}%` }} 
+                  />
+                </div>
               </div>
 
               {/* 3rd Party Costs */}
@@ -284,6 +334,11 @@ function CalculatorPage() {
                   <span>Pages:</span>
                   <span className="font-mono text-foreground">{pages}</span>
                 </div>
+                {pages > 8 && !designNeeded && (
+                  <div className="mt-2 flex items-center gap-2 rounded-lg bg-orange-500/10 p-3 text-[9px] uppercase tracking-wider text-orange-500 animate-in fade-in zoom-in duration-300">
+                    <span className="text-lg">💡</span> Pro Tip: Large sites highly benefit from Custom UI/UX
+                  </div>
+                )}
                 {designNeeded && (
                   <div className="flex justify-between text-xs text-muted-foreground">
                     <span>Custom UI/UX:</span>
