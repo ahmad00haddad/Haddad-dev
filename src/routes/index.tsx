@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [projectsData, setProjectsData] = useState<Project[]>([]);
   const [randomProjects, setRandomProjects] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(() => typeof window !== "undefined" ? !sessionStorage.getItem("has_loaded_canvas") : true);
+  const [isLoading, setIsLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
   const [visibleCount, setVisibleCount] = useState(5);
   const MARQUEE_ITEMS = [...SKILLS, ...SKILLS];
@@ -54,16 +54,28 @@ function Index() {
     getProjects().then((data) => {
       setProjectsData(data);
       if (data.length > 0) {
-        const filteredData = data.filter(p => !p.repo.includes("Haddad-dev") && !p.repo.includes("ahmadhaddad"));
-        const shuffled = [...filteredData].sort(() => 0.5 - Math.random());
-        while (shuffled.length < 6) {
-          shuffled.push(...filteredData);
+        let selected6 = [];
+        const cached = sessionStorage.getItem("cached_random_projects");
+        if (cached) {
+          try {
+            selected6 = JSON.parse(cached);
+          } catch(e) {}
         }
-        const selected6 = shuffled.slice(0, 6);
+        
+        if (!selected6 || selected6.length === 0) {
+          const filteredData = data.filter(p => !p.repo.includes("Haddad-dev") && !p.repo.includes("ahmadhaddad"));
+          const shuffled = [...filteredData].sort(() => 0.5 - Math.random());
+          while (shuffled.length < 6) {
+            shuffled.push(...filteredData);
+          }
+          selected6 = shuffled.slice(0, 6);
+          sessionStorage.setItem("cached_random_projects", JSON.stringify(selected6));
+        }
         setRandomProjects(selected6);
 
         // If already loaded in this session, skip the visual preloader wait
         if (sessionStorage.getItem('has_loaded_canvas')) {
+          setIsLoading(false);
           setLoadProgress(100);
           return;
         }
