@@ -28,6 +28,8 @@ function useCountUp(value: number, duration: number = 800) {
 }
 
 import { ScrambleText } from "@/components/ScrambleText";
+import { CustomCursor } from "@/components/CustomCursor";
+import { LeadCapture } from "@/components/LeadCapture";
 
 export const Route = createFileRoute("/calculator")({
   component: CalculatorPage,
@@ -117,6 +119,7 @@ function CalculatorPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30">
+      <CustomCursor />
       <div className="olive-glow pointer-events-none fixed inset-0 opacity-40" aria-hidden="true" />
 
       <header className="mx-auto flex max-w-7xl items-center justify-end px-5 py-6 sm:px-8 relative z-50">
@@ -354,6 +357,12 @@ function CalculatorPage() {
                   </div>
                 )}
               </div>
+
+              <LeadCapture
+                estimateMin={min}
+                estimateMax={max}
+                projectType={projectType}
+              />
 
               <button 
                 onClick={() => {

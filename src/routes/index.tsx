@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getProjects, SKILLS, type Project } from "../data";
+import { CustomCursor } from "@/components/CustomCursor";
 import hero1 from "@/assets/hero-1.jpg";
 import hero2 from "@/assets/hero-2.jpg";
 import work1 from "@/assets/work-1.jpg";
@@ -132,6 +133,7 @@ function Index() {
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
+        <CustomCursor />
       {/* Preloader */}
       <div 
         className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background ${hasLoadedInitially ? "hidden" : "transition-opacity duration-1000 ease-in-out"} ${isLoading ? "opacity-100" : "pointer-events-none opacity-0"}`}
