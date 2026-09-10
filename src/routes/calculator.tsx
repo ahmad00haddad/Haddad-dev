@@ -359,8 +359,8 @@ function CalculatorPage() {
               </div>
 
               <LeadCapture
-                estimateMin={min}
-                estimateMax={max}
+                estimateMin={calcMin}
+                estimateMax={calcMax}
                 projectType={projectType}
               />
 

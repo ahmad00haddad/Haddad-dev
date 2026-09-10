@@ -158,7 +158,7 @@ function Index() {
       {/* Floating Hover Image */}
       {hoveredImage && (
         <div 
-          className="pointer-events-none fixed z-40 overflow-hidden rounded-xl shadow-2xl transition-all duration-75 ease-out"
+          className="pointer-events-none fixed z-40 hidden overflow-hidden rounded-xl shadow-2xl transition-all duration-75 ease-out md:block"
           style={{ 
             left: mousePos.x, 
             top: mousePos.y, 
@@ -178,7 +178,7 @@ function Index() {
             className="fixed inset-0 z-50 bg-background/60 backdrop-blur-sm transition-opacity" 
             onClick={() => { setSelectedProject(null); setIsZoomed(false); }} 
           />
-          <div className="fixed right-0 top-0 bottom-0 z-50 flex w-full max-w-md flex-col overflow-y-auto border-l border-border/50 bg-card/95 p-8 shadow-2xl backdrop-blur-xl animate-in slide-in-from-right">
+          <div className="fixed right-0 top-0 bottom-0 z-50 flex w-full max-w-md flex-col overflow-y-auto overscroll-contain border-l border-border/50 bg-card/95 p-6 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-[calc(2rem+env(safe-area-inset-top))] shadow-2xl backdrop-blur-xl animate-in slide-in-from-right sm:p-8">
             <button 
               onClick={() => { setSelectedProject(null); setIsZoomed(false); }}
               className="absolute right-6 top-6 text-xs uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
@@ -238,8 +238,8 @@ function Index() {
       <div className="relative z-10">
         {/* Nav */}
         <div className={`sticky top-0 z-40 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isScrolled ? '-translate-y-full opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
-          <header className="mx-auto flex max-w-7xl items-center justify-end px-5 py-6 sm:px-8">
-            <nav className="flex items-center gap-5 text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:gap-8 sm:text-xs">
+          <header className="mx-auto flex max-w-7xl items-center justify-end px-5 pb-4 pt-[calc(1rem+env(safe-area-inset-top))] sm:px-8 sm:py-6">
+            <nav className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2 text-[10px] uppercase tracking-[0.14em] text-muted-foreground sm:gap-8 sm:text-xs sm:tracking-[0.18em]">
               <Link to="/calculator" className="text-primary transition-all duration-300 hover:text-primary/80 hover:-translate-y-1 hover:scale-110 active:scale-95">
                 [ Calculator ]
               </Link>
@@ -468,7 +468,7 @@ function Index() {
         </section>
 
         {/* Contact */}
-        <footer id="contact" className="mx-auto max-w-7xl px-5 pb-16 pt-24 sm:px-8 relative">
+        <footer id="contact" className="mx-auto max-w-7xl px-5 pb-[calc(4rem+env(safe-area-inset-bottom))] pt-24 sm:px-8 relative">
           <h2 className="font-display text-[18vw] font-extrabold uppercase leading-[0.82] tracking-tighter sm:text-[14vw] relative z-10">
             Let&apos;s <span className="font-serif italic normal-case relative group">
               Talk

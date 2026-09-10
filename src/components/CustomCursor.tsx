@@ -7,7 +7,13 @@ export function CustomCursor() {
   const [isHidden, setIsHidden] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
 
+  const [isFinePointer, setIsFinePointer] = useState(false);
+
   useEffect(() => {
+    // Touch devices: keep the native behaviour, no custom cursor
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    setIsFinePointer(true);
+
     // Hide default cursor
     document.body.style.cursor = "none";
 
@@ -71,6 +77,8 @@ export function CustomCursor() {
       document.removeEventListener("mouseup", onMouseUp);
     };
   }, []);
+
+  if (!isFinePointer) return null;
 
   return (
     <>
