@@ -78,6 +78,8 @@ export function CustomCursor() {
     };
   }, []);
 
+  if (!isFinePointer) return null;
+
   return (
     <>
       {/* Inner dot — snaps instantly */}
