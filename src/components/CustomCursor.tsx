@@ -97,20 +97,20 @@ export function CustomCursor() {
 
   return (
     <>
-      {/* Inner dot — snaps instantly */}
+      {/* Inner dot — eased, follows closely */}
       <div
         ref={dotRef}
-        className={`pointer-events-none fixed left-0 top-0 z-[9999] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary transition-all duration-150 ${
+        className={`pointer-events-none fixed left-0 top-0 z-[9999] rounded-full bg-primary transition-[width,height,opacity,background-color] duration-200 ease-out will-change-transform ${
           isHidden ? "opacity-0" : "opacity-100"
         } ${
           isPointer ? "h-2 w-2 opacity-0" : isClicking ? "h-1.5 w-1.5" : "h-2 w-2"
         }`}
       />
 
-      {/* Outer ring — lerps smoothly */}
+      {/* Outer ring — trails smoothly */}
       <div
         ref={ringRef}
-        className={`pointer-events-none fixed left-0 top-0 z-[9998] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/60 transition-all duration-200 ${
+        className={`pointer-events-none fixed left-0 top-0 z-[9998] rounded-full border border-primary/60 transition-[width,height,opacity,background-color,border-color] duration-200 ease-out will-change-transform ${
           isHidden ? "opacity-0" : "opacity-100"
         } ${
           isPointer
