@@ -41,6 +41,7 @@ function Index() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isZoomed, setIsZoomed] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMarqueePaused, setIsMarqueePaused] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 80);
