@@ -2,11 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getProjects, SKILLS, type Project } from "../data";
 import { CustomCursor } from "@/components/CustomCursor";
-import hero1 from "@/assets/hero-1.jpg";
-import hero2 from "@/assets/hero-2.jpg";
-import work1 from "@/assets/work-1.jpg";
-import work2 from "@/assets/work-2.jpg";
-import work3 from "@/assets/work-3.jpg";
+import hero1 from "@/assets/hero-1.webp";
+import hero2 from "@/assets/hero-2.webp";
+import work1 from "@/assets/work-1.webp";
+import work2 from "@/assets/work-2.webp";
+import work3 from "@/assets/work-3.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
