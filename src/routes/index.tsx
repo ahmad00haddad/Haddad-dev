@@ -167,7 +167,7 @@ function Index() {
             height: "180px"
           }}
         >
-          <img src={hoveredImage} className="h-full w-full object-cover object-top" alt="Preview" />
+          <img decoding="async" loading="lazy" src={hoveredImage} className="h-full w-full object-cover object-top" alt="Preview" />
         </div>
       )}
 
@@ -188,7 +188,7 @@ function Index() {
             
             <div className="mt-8 flex-1">
               <div className="overflow-hidden rounded-lg">
-                <img src={selectedProject.image} className="h-48 w-full object-cover object-top" alt={selectedProject.name} />
+                <img decoding="async" loading="lazy" src={selectedProject.image} className="h-48 w-full object-cover object-top" alt={selectedProject.name} />
               </div>
               
               <h2 className="mt-8 font-display text-4xl tracking-tight">{selectedProject.name}</h2>
@@ -270,21 +270,21 @@ function Index() {
         >
           <div className="relative">
                         <div className="pointer-events-none absolute inset-0 -z-10 hidden md:block">
-              <img
+              <img decoding="async" loading="lazy"
                 src={randomProjects[0]?.image || hero1}
                 alt="Project 1"
                 width={900}
                 height={1200}
                 className="absolute left-[4%] top-[20%] h-56 w-40 rounded-sm object-cover object-top opacity-[0.6] brightness-[0.7] saturate-[0.7] shadow-2xl transition-all duration-700 lg:h-72 lg:w-52"
               />
-              <img
+              <img decoding="async" loading="lazy"
                 src={randomProjects[1]?.image || hero2}
                 alt="Project 2"
                 width={1200}
                 height={800}
                 className="absolute right-[2%] top-[45%] h-40 w-64 rounded-sm object-cover object-top opacity-[0.6] brightness-[0.7] saturate-[0.7] shadow-2xl transition-all duration-700 lg:h-52 lg:w-80"
               />
-              <img
+              <img decoding="async"
                 src={randomProjects[2]?.image || work2}
                 alt="Project 3"
                 loading="lazy"
@@ -323,14 +323,14 @@ function Index() {
 
             {/* Mobile image column */}
             <div className="mt-10 grid grid-cols-2 gap-3 md:hidden pointer-events-none">
-              <img
+              <img decoding="async" loading="lazy"
                 src={randomProjects[0]?.image || hero1}
                 alt="Project 1"
                 width={900}
                 height={1200}
                 className="h-44 w-full rounded-sm object-cover object-top opacity-[0.6] brightness-[0.7] saturate-[0.7] transition-all duration-700"
               />
-              <img
+              <img decoding="async" loading="lazy"
                 src={randomProjects[1]?.image || hero2}
                 alt="Project 2"
                 width={1200}
@@ -565,7 +565,7 @@ function Card({
   return (
     <figure className={`group relative ${className ?? ""}`}>
       <div className={`relative overflow-hidden rounded-sm ${ratio}`}>
-        <img
+        <img decoding="async"
           src={src}
           alt={alt}
           loading="lazy"
