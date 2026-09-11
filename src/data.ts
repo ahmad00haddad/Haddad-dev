@@ -59,7 +59,7 @@ export const initialProjectsData: Project[] = [];
 export async function resolveImageUrl(imageUrl: string | null, fallbackIndex: number, projectUrl?: string): Promise<string> {
   const fallback = FALLBACK_IMAGES[fallbackIndex % FALLBACK_IMAGES.length]!;
   if (!imageUrl) {
-    if (projectUrl) return `https://api.microlink.io/?screenshot=true&meta=false&embed=screenshot.url&waitForTimeout=3500&url=${projectUrl}`;
+    if (projectUrl) return `https://api.microlink.io/?screenshot=true&meta=false&embed=screenshot.url&screenshot.type=webp&viewport.width=1024&viewport.height=640&waitForTimeout=600&url=${projectUrl}`;
     return fallback;
   }
   if (/^https?:\/\//.test(imageUrl) || imageUrl.startsWith("/")) return imageUrl;
