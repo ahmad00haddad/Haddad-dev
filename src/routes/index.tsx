@@ -41,6 +41,7 @@ function Index() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isZoomed, setIsZoomed] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMarqueePaused, setIsMarqueePaused] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 80);
@@ -448,17 +449,27 @@ function Index() {
         </section>
 
         {/* Skills Marquee */}
-        <section className="relative overflow-hidden border-y border-border bg-card/20 py-8 group cursor-pointer">
-            {/* Smart Marquee Hint */}
-            <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-active:scale-95">
-              <span className="rounded-full bg-foreground/90 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.3em] text-background shadow-2xl backdrop-blur-md">
-                [ Hold to Pause ]
-              </span>
-            </div>
-          <div className="flex w-max animate-marquee items-center gap-16 pr-16 hover:[animation-play-state:paused]">
+        <section
+          className="group relative overflow-hidden border-y border-border bg-card/20 py-8 cursor-pointer select-none"
+          onMouseDown={() => setIsMarqueePaused(true)}
+          onMouseUp={() => setIsMarqueePaused(false)}
+          onMouseLeave={() => setIsMarqueePaused(false)}
+          onTouchStart={() => setIsMarqueePaused(true)}
+          onTouchEnd={() => setIsMarqueePaused(false)}
+        >
+          {/* Smart Marquee Hint */}
+          <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <span className="rounded-full bg-foreground/90 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.3em] text-background shadow-2xl backdrop-blur-md">
+              [ Hold to Pause ]
+            </span>
+          </div>
+          <div
+            className="flex w-max animate-marquee items-center gap-16 pr-16"
+            style={{ animationPlayState: isMarqueePaused ? "paused" : "running" }}
+          >
             {MARQUEE_ITEMS.map((skill, i) => (
-              <span 
-                key={i} 
+              <span
+                key={i}
                 className="whitespace-nowrap font-display text-4xl font-extrabold uppercase tracking-tight text-foreground/10 transition-colors hover:text-foreground/40 sm:text-6xl"
               >
                 {skill} <span className="mx-4 text-primary/40">✦</span>
