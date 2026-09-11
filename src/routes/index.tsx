@@ -450,7 +450,7 @@ function Index() {
 
         {/* Skills Marquee */}
         <section
-          className="relative overflow-hidden border-y border-border bg-card/20 py-8 cursor-pointer select-none"
+          className="group relative overflow-hidden border-y border-border bg-card/20 py-8 cursor-pointer select-none"
           onMouseDown={() => setIsMarqueePaused(true)}
           onMouseUp={() => setIsMarqueePaused(false)}
           onMouseLeave={() => setIsMarqueePaused(false)}
@@ -458,7 +458,7 @@ function Index() {
           onTouchEnd={() => setIsMarqueePaused(false)}
         >
           {/* Smart Marquee Hint */}
-          <div className={`pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ${isMarqueePaused ? "opacity-0" : "opacity-0"}`}>
+          <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <span className="rounded-full bg-foreground/90 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.3em] text-background shadow-2xl backdrop-blur-md">
               [ Hold to Pause ]
             </span>
