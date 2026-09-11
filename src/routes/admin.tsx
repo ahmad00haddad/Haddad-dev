@@ -388,7 +388,7 @@ const compressImage = (file: File, maxWidth = 1200, quality = 0.8): Promise<File
                     onClick={async (e) => {
                       e.preventDefault();
                       if (!proj.url) return alert("Please enter a LIVE URL first!");
-                      const autoUrl = `https://api.microlink.io/?screenshot=true&meta=false&embed=screenshot.url&waitForTimeout=3500&url=${proj.url}`;
+                      const autoUrl = `https://api.microlink.io/?screenshot=true&meta=false&embed=screenshot.url&screenshot.type=webp&viewport.width=1024&viewport.height=640&waitForTimeout=1500&url=${proj.url}`;
                       try {
                         const { error } = await supabase.from("projects").update({ image_url: autoUrl }).eq("id", proj.id);
                         if (error) throw error;

@@ -1,8 +1,8 @@
-import hero1 from "@/assets/hero-1.jpg";
-import hero2 from "@/assets/hero-2.jpg";
-import work1 from "@/assets/work-1.jpg";
-import work2 from "@/assets/work-2.jpg";
-import work3 from "@/assets/work-3.jpg";
+import hero1 from "@/assets/hero-1.webp";
+import hero2 from "@/assets/hero-2.webp";
+import work1 from "@/assets/work-1.webp";
+import work2 from "@/assets/work-2.webp";
+import work3 from "@/assets/work-3.webp";
 import { supabase } from "@/integrations/supabase/client";
 
 export const SKILLS = [
@@ -59,7 +59,7 @@ export const initialProjectsData: Project[] = [];
 export async function resolveImageUrl(imageUrl: string | null, fallbackIndex: number, projectUrl?: string): Promise<string> {
   const fallback = FALLBACK_IMAGES[fallbackIndex % FALLBACK_IMAGES.length]!;
   if (!imageUrl) {
-    if (projectUrl) return `https://api.microlink.io/?screenshot=true&meta=false&embed=screenshot.url&waitForTimeout=3500&url=${projectUrl}`;
+    if (projectUrl) return `https://api.microlink.io/?screenshot=true&meta=false&embed=screenshot.url&screenshot.type=webp&viewport.width=1024&viewport.height=640&waitForTimeout=600&url=${projectUrl}`;
     return fallback;
   }
   if (/^https?:\/\//.test(imageUrl) || imageUrl.startsWith("/")) return imageUrl;
