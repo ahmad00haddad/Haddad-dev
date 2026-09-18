@@ -54,20 +54,54 @@ function Index() {
 
 
 
+  // Short, time-capped intro: never waits for the database or project screenshots
   useEffect(() => {
-    getProjects().then((data) => {
-      setProjectsData(data);
-      if (data.length > 0) {
-        let selected6 = [];
+    if (sessionStorage.getItem("has_loaded_canvas")) {
+      setLoadProgress(100);
+      setIsLoading(false);
+      return;
+    }
+
+    // Warm only the first-screen imagery
+    [hero1, hero2, work2].forEach((src) => {
+      const img = new window.Image();
+      img.src = src;
+    });
+
+    const start = Date.now();
+    const DURATION = 700;
+    const tick = window.setInterval(() => {
+      const pct = Math.min(100, Math.round(((Date.now() - start) / DURATION) * 100));
+      setLoadProgress(pct);
+      if (pct >= 100) {
+        window.clearInterval(tick);
+        sessionStorage.setItem("has_loaded_canvas", "true");
+        setIsLoading(false);
+      }
+    }, 50);
+
+    return () => window.clearInterval(tick);
+  }, []);
+
+  // Projects stream in behind the scenes; images appear as they arrive
+  useEffect(() => {
+    getProjects()
+      .then((data) => {
+        setProjectsData(data);
+        if (data.length === 0) return;
+
+        let selected6: Project[] = [];
         const cached = sessionStorage.getItem("cached_random_projects");
         if (cached) {
           try {
             selected6 = JSON.parse(cached);
-          } catch(e) {}
+          } catch (e) {}
         }
-        
+
         if (!selected6 || selected6.length === 0) {
-          const filteredData = data.filter(p => !p.repo.includes("Haddad-dev") && !p.repo.includes("ahmadhaddad"));
+          const filteredData = data.filter(
+            (p) => !p.repo.includes("Haddad-dev") && !p.repo.includes("ahmadhaddad"),
+          );
           const shuffled = [...filteredData].sort(() => 0.5 - Math.random());
           while (shuffled.length < 6) {
             shuffled.push(...filteredData);
@@ -76,48 +110,10 @@ function Index() {
           sessionStorage.setItem("cached_random_projects", JSON.stringify(selected6));
         }
         setRandomProjects(selected6);
-
-        // If already loaded in this session, skip the visual preloader wait
-        if (sessionStorage.getItem('has_loaded_canvas')) {
-          setIsLoading(false);
-          setLoadProgress(100);
-          return;
-        }
-
-
-        // Preload exactly the 6 images that will be rendered
-        const imagesToLoad = [
-          selected6[0]?.image || hero1,
-          selected6[1]?.image || hero2,
-          selected6[2]?.image || work2,
-          selected6[3]?.image || work1,
-          selected6[4]?.image || work2,
-          selected6[5]?.image || work3,
-        ];
-
-        let loadedCount = 0;
-        imagesToLoad.forEach(src => {
-          const img = new window.Image();
-          img.src = src;
-          const updateProgress = () => {
-            loadedCount++;
-            setLoadProgress(Math.round((loadedCount / imagesToLoad.length) * 100));
-            if (loadedCount === imagesToLoad.length) {
-              sessionStorage.setItem('has_loaded_canvas', 'true');
-              setTimeout(() => setIsLoading(false), 500); // Wait half a second at 100% for aesthetic effect
-            }
-          };
-          img.onload = updateProgress;
-          img.onerror = updateProgress;
-        });
-
-      } else {
-        setIsLoading(false);
-      }
-    }).catch(() => {
-      setProjectsData([]);
-      setIsLoading(false);
-    });
+      })
+      .catch(() => {
+        setProjectsData([]);
+      });
   }, []);
 
   useEffect(() => {
